@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQuery-ajax</title>
+</head>
+<body>
+    <button onclick="loadMsg()">请求数据</button>
+    <div id="msg"></div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script>
+    function loadMsg() {
+        $.ajax({
+            url: 'https://easy-mock.com/mock/5af70e64cd6ea04cb070814a/test/',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data.cars)
+                var txt = '审核信息：' + data.message + '<br>' + '车型：'
+                for(var i= 0; i < data.cars.length; i++){
+                    txt += data.cars[i]+'&nbsp'
+                }
+                $('#msg').html(txt)
+            }
+        })
+    }
+    </script>
+</body>
+</html>

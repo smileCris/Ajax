@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>axios-ajax</title>
+</head>
+<body>
+    <button onclick="loadMsg()">请求数据</button>
+    <div id="msg"></div>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.js"></script>
+    <script>
+    function loadMsg() {        
+        axios.get('https://easy-mock.com/mock/5af70e64cd6ea04cb070814a/test/')
+            .then((response) => {
+                var data = response.data
+                var txt = '审核信息：' + data.message + '<br>' + '车型：'
+                for(var i= 0; i < data.cars.length; i++){
+                    txt += data.cars[i]+'&nbsp';
+                }
+                document.getElementById('msg').innerHTML = txt;
+                console.log(data.cars)
+            })
+            .catch(e => console.log('error:', e))
+    }
+    </script>
+</body>
+</html>

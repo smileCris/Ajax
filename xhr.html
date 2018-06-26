@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>xhr-ajax</title>
+</head>
+<body>
+    <button onclick="loadMsg()">请求数据</button>
+    <div id="msg"></div>
+    <script>
+        function loadMsg() {
+            var xmlHttp;
+            if(window.XMLHttpRequest) {         //IE7+, Firefox, Chrome, Opera, Safari
+                xmlHttp = new XMLHttpRequest()
+            }else if(window.ActiveXObject) {         //IE5,IE6
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+            }
+            xmlHttp.open("GET","https://easy-mock.com/mock/5af70e64cd6ea04cb070814a/test/",true)
+            xmlHttp.send()
+            xmlHttp.onreadystatechange = function() {
+                if ((xmlHttp.readyState == 4) && (xmlHttp.status == 200)) {
+                    var data = eval('('+ xmlHttp.responseText +')')
+                    var txt = '审核信息：' + data.message + '<br>' + '车型：'
+                    for(var i= 0; i < data.cars.length; i++){
+                        txt += data.cars[i]+'&nbsp'
+                    }
+                    document.getElementById('msg').innerHTML = txt
+                }
+            }
+        }
+    </script>
+</body>
+</html>
